@@ -13,56 +13,92 @@ class Transaction:
         self.date = None
         self.notes = None
 
-
-def getAmount():
-    print("How much money was the transaction?")
-    print("(Enter a number, negatives are allowed)")
-    amount = input()
-    i = True
-    while i:
-        try:
-            amount = float(amount)
-            i = False
-        except ValueError:
-            print("That isn't a number. Please enter a different value.")
-            amount = input()
-    return amount
-
-
-def getDate():
-    print("When did the transaction occur?")
-    print("(Enter in MM/DD/YYYY format)")
-    i = True
-    while i:
-        date = input()
-        if len(date) == 10:
-            if date[2] == '/' and date[5] == '/':
+    def getAmount(self):
+        print("How much money was the transaction?")
+        print("(Enter a number, negatives are allowed)")
+        amount = input()
+        i = True
+        while i:
+            try:
+                amount = float(amount)
                 i = False
-                return date
+            except ValueError:
+                print("That isn't a number. Please enter a different value.")
+                amount = input()
+        self.amount = amount
+
+    def getDate(self):
+        print("When did the transaction occur?")
+        print("(Enter in MM/DD/YYYY format)")
+        i = True
+        while i:
+            date = input()
+            if len(date) == 10:
+                if date[2] == '/' and date[5] == '/':
+                    i = False
+                    self.date = date
+                else:
+                    print("That's not a valid date! Please try again.")
             else:
                 print("That's not a valid date! Please try again.")
+
+    def getNotes(self):
+        print("Would you like to enter any notes?")
+        print("(Enter your notes here, or leave it blank)")
+        notes = input()
+        if len(notes) == 0:
+            self.notes = None
         else:
-            print("That's not a valid date! Please try again.")
+            self.notes = notes
 
+    def getData(self):
+        print("You are about to create a new transaction record,")
+        print("which will include the amount, date, and any notes.")
+        keepGoing = input("Would you like to continue? (Y/N)\n")
+        if keepGoing == 'Y' or keepGoing == 'y':
+            self.getAmount()
+            self.getDate()
+            self.getNotes()
+        else:
+            print("Cancelling input.")
 
-def getNotes():
-    print("Would you like to enter any notes?")
-    print("(Enter your notes here, or leave it blank)")
-    notes = input()
-    if len(notes) == 0:
-        return None
-    else:
-        return notes
+    def confirm(self):
+        print("You entered the following:")
+        print("Amount: ", self.amount)
+        print("Date: ", self.date)
+        print("Notes: ", self.notes)
+        print("Is that correct? (Y/N)")
+        correctness = input()
+        if correctness == 'Y' or correctness == 'y':
+            return True
+        else:
+            return False
 
 
 def main():
-    currentTransaction = Transaction()
-    currentTransaction.amount = getAmount()
-    print(currentTransaction.amount)
-    currentTransaction.date = getDate()
-    print(currentTransaction.date)
-    currentTransaction.notes = getNotes()
-    print(currentTransaction.notes)
+    keepGoing = True
+    print("Welcome to version 0.0.2 of the Budgeter!")
+    while keepGoing:
+        print("What would you like to do? (Enter a letter)")
+        print("A. Enter a new transaction into your record")
+        print("B. View the contents of your record")
+        print("C. Edit/delete an entry in your record")
+        print("D. Close the program")
+        whatToDo = input()
+        if whatToDo == 'A' or whatToDo == 'a':
+            currentTransaction = Transaction()
+            currentTransaction.getData()
+            doWeSave = currentTransaction.confirm()
+            del currentTransaction  # eventually replace with write function
+        elif whatToDo == 'B' or whatToDo == 'b':
+            print("Not yet implemented. Sorry.")
+        elif whatToDo == 'C' or whatToDo == 'c':
+            print("Not yet implemented. Sorry.")
+        elif whatToDo == 'D' or whatToDo == 'd':
+            print("Thank you for using the Budgeter. Goodbye.")
+            keepGoing = False
+        else:
+            print("That doesn't seem to be a valid option. Please try again.")
 
 
 main()
