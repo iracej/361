@@ -3,8 +3,8 @@ HOW TO INITIALIZE RPYC:
     At the top of your program, add a line that says "import rpyc" (no quotation marks)
     In the body of your program, before you use the service, add the following:
         c = rpyc.connect("localhost", 22122)
-    Note that you don't actually have to call it c, you can name the variable anything you want.
     22122 is an arbitrary five-digit port. service.py will only be listening for that port, so don't change it!
+    Note that you don't actually have to call it c, you can name the variable anything you want.
     The rest of this README will assume you named it c.
     Once this is done, and you're ready to use the service, run service.py.
 
