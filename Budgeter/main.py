@@ -11,6 +11,7 @@ class Transaction:
     def __init__(self):
         self.amount = None
         self.date = None
+        self.category = None
         self.notes = None
 
     def getAmount(self):
@@ -42,6 +43,17 @@ class Transaction:
             else:
                 print("That's not a valid date! Please try again.")
 
+    def getCategory(self):
+        print("What category does the transaction belong to?")
+        i = True
+        while i:
+            category = input()
+            if len(category) > 0:
+                i = False
+                self.category = category
+            else:
+                print("That's not a valid date! Please try again.")
+
     def getNotes(self):
         print("Would you like to enter any notes?")
         print("(Enter your notes here, or leave it blank)")
@@ -53,7 +65,7 @@ class Transaction:
 
     def getData(self):
         print("You are about to create a new transaction record,")
-        print("which will include the amount, date, and any notes.")
+        print("which will include the amount, date, category, and any notes.")
         keepGoing = input("Would you like to continue? (Y/N)\n")
         if keepGoing == 'Y' or keepGoing == 'y':
             self.getAmount()
